@@ -49,6 +49,8 @@
           ansible.builtin.file:
             path: /home/master/file1.txt
             state: touch
+            owner: master
+            group: master
             mode: 0777
 
 
