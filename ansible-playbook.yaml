@@ -45,11 +45,6 @@
           register: results
         - debug:
             var: results
-        - name: add_new_file
-          ansible.builtin.file:
-            path: /home/master/file1.txt
-            state: touch
-            mode: 0777
 
 
       when: ansible_os_family == "Debian"
