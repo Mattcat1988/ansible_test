@@ -1,0 +1,5 @@
+
+[staging]
+prometheus  ansible_host=192.168.122.45
+[rhel]
+oracle      ansible_host=192.168.122.170

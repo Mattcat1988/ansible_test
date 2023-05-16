@@ -1,0 +1,50 @@
+---
+- name: install package
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: cheking operate system
+      debug: var=ansible_os_family
+
+    - block: # =======Block for RedHat=======
+        - name: install bluetooth
+          ansible.builtin.dnf:
+            name:
+              - pavucontrol
+              - pipewire
+              - bluez
+            state: absent
+        - name: restart demons
+          ansible.builtin.systemd:
+            state: started
+            name: bluetooth.target
+
+
+
+      when: ansible_os_family == "RedHat"
+
+    - block: #=====Block for debian=====
+        - name: install bluetooth
+          ansible.builtin.apt:
+            name:
+              - pavucontrol
+              - bluez
+              - pipewire
+            state: latest
+        - name: restart demon
+          ansible.builtin.systemd:
+            name: bluetooth.target
+            state: started
+        - name: reload_demons
+          ansible.builtin.shell:
+             systemctl --user daemon-reload
+        - name: hostnamectl check
+          ansible.builtin.shell:
+             uname -r
+          register: results
+        - debug:
+            var: results
+
+
+      when: ansible_os_family == "Debian"
