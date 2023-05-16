@@ -19,6 +19,13 @@
           ansible.builtin.systemd:
             state: started
             name: bluetooth.target
+        - name: add_file_rhel
+          ansible.builtin.file:
+            path: /home/master/file2.txt
+            state: touch
+            owner: master
+            group: master
+            mode: 0777
 
 
 
@@ -48,7 +55,7 @@
         - name: add_new_file
           ansible.builtin.file:
             path: /home/master/file1.txt
-            state: touch
+            state: absent
             owner: master
             group: master
             mode: 0777
