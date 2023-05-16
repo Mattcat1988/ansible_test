@@ -3,6 +3,10 @@
   hosts: all
   become: yes
 
+  vars:
+    source_file: /home/NSO.LOC/bavig/new.yaml
+    destin_file: /home/master
+
   tasks:
     - name: cheking operate system
       debug: var=ansible_os_family
@@ -67,6 +71,16 @@
             ip a
           register: out
         - debug: msg="{{ out.stdout }}"
+
+        - name: file copy server to remote desktop
+          ansible.builtin.copy:
+            src:
+                "{{ source_file }}"
+            dest:
+                "{{ destin_file }}"
+            owner: master
+            group: master
+            mode: 0555
 
 
       when: ansible_os_family == "Debian"
