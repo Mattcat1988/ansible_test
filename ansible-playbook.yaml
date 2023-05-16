@@ -26,8 +26,11 @@
             owner: master
             group: master
             mode: 0777
-
-
+        - name: check_file
+          ansible.builtin.shell:
+            ls -lt /home/master/ | grep file
+          register: out
+        - debug: msg="{{ out.stdout }}"
 
       when: ansible_os_family == "RedHat"
 
