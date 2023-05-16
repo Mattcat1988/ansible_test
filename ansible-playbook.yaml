@@ -51,7 +51,7 @@
              systemctl --user daemon-reload
         - name: hostnamectl check
           ansible.builtin.shell:
-             uname -r
+             uname -a
           register: results
         - debug:
             var: results
@@ -62,6 +62,11 @@
             owner: master
             group: master
             mode: 0777
+        - name: check_ip
+          ansible.builtin.shell:
+            ip a
+          register: out
+        - debug: msg="{{ out.stdout }}"
 
 
       when: ansible_os_family == "Debian"
