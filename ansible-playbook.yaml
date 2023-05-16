@@ -3,9 +3,6 @@
   hosts: all
   become: yes
 
-  vars:
-    source_file: /home/NSO.LOC/bavig/new.yaml
-    destin_file: /home/master
 
   tasks:
     - name: cheking operate system
@@ -75,9 +72,9 @@
         - name: file copy server to remote desktop
           ansible.builtin.copy:
             src:
-                "{{ source_file }}"
+                /home/NSO.LOC/bavig/new.yaml
             dest:
-                "{{ destin_file }}"
+                /home/master
             owner: master
             group: master
             mode: 0555
