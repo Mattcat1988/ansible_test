@@ -15,7 +15,7 @@
               - pavucontrol
               - pipewire
               - bluez
-            state: absent
+            state: present
         - name: restart demons
           ansible.builtin.systemd:
             state: started
